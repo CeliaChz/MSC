@@ -6,15 +6,11 @@ Le point fort d’Uppaal c’est le temps; ici on ne l’utilise que pour simule
 
 Ce TP est facile; il faut avoir commencé le TP2 avant la fin de la première séance.
 
-
-
 ## Étudiez les différents onglets de l’éditeur graphiques
 
 * `editor` qui permet de modifier les _déclarations_; les _templates_ de processus; et la _déclaration du système_
 * `simulator` affiche le _système instancié_ et permet d’explorer les états du système
 * `verifier` le model-checker intégré à UPPAAL
-
-
 
 ## Il y a trois types de fichiers (extensions)
 
@@ -23,14 +19,14 @@ Ce TP est facile; il faut avoir commencé le TP2 avant la fin de la première s�
 * `.q` format _query_, pour déclarer de nouvelles propriétés
 * il y a aussi possibilité d’utiliser un langage `XML`
 
-
-
 ## Synchronisation en UPPAAL
 
 Les transitions d’un _template_/_process_  UPPAAL peuvent avoir quatre types de propriétés
 
-![Edit edge in UPPAAL](docs/1586956621847.png)
-*Fig. 1: edit edge in UPPAAL*
+<figure>
+  <img src="docs/1586956621847.png" alt="Edit edge in UPPAAL" />
+  <figcaption>Fig. 1: edit edge in UPPAAL</figcaption>
+</figure>
 
 * `select` choix “non-déterministe” d’une valeur 
 * `guard` (condition) sur les données
@@ -41,11 +37,11 @@ Une transition sans `sync` est dite interne. Elle peut se déclencher indépenda
 
 Il y a deux _polarités_ sur les canaux `!` (émettre) et `?` recevoir.  On peut émettre sur un canal `a` (noté `a!`) ou recevoir (noté `a?`).
 
-> __Convention:__ on dit que le message transite de `a!` vers `a?` 
+> __Convention:__ on dit que le message transite de `a!` vers `a?`
+
+&nbsp;
 
 > __Convention:__ on exécute toujours l’update de l’émetteur avant celui du récepteur (utile seulement si on a des données)
-
-
 
 ## Espace d’état d’un système
 
@@ -55,24 +51,21 @@ C’est ce qu’on appelle la __sémantique__ du système.
 
 Le _model-checking_, c’est utilisé des formules de logique temporelle pour “poser des questions” sur le graphe, par exemple pour découvrir la présence de _deadlock_ (états sans transitions sortantes); savoir si le système est _vivant_ et/ou ré-initialisable; …
 
-
-
-
-<img src=".\docs\state_space.png" alt="State space for the first example" style="zoom:75%;" />
-*Fig. 2: espace d'état pour l'exemple de la question 1*
-
-
+<figure>
+  <img src="docs/state_space.png" alt="State space for the first example" />
+  <figcaption>Fig. 2: espace d'état pour l'exemple de la question 1</figcaption>
+</figure>
 
 ## Rappel sur les formules de logique temporelle en UPPAAL
 
-Il existe des formules qui parlent de “l’état courant” du système: conjonction ($\wedge$), notée `and`; disjonction ($\vee$), notée `or`; et négation, notée `not`, de _propriétés atomiques_ 
+Il existe des formules qui parlent de “l’état courant” du système: conjonction, notée `and`; disjonction, notée `or`; et négation, notée `not`, de _propriétés atomiques_.
 
 * l’instance `gauche` est dans l’état `a` s’écrit `gauche.a`
 * la valeur de la variable `cpt` de l’instance `FifoRI` est inférieure à 2  s’écrit `FifoRI.cpt <=2`
 
 Il y a des modalités
 
-* deux _modifiers_  de contexte: `A` (All, $\forall$) et `E` (Exists, $\exist$ )
+* deux _modifiers_  de contexte: `A` (All, ∀) et `E` (Exists, ∃)
 * deux modalités temporelles: `[]` (partout, tout le temps) et `<>` (éventuellement) 
 * donnent 4 possibilités (`A[]`, `E[]`, `A<>`, `E<>`) + une formule spéciale (_leadsto_) `.. –> ..`
 
@@ -80,30 +73,31 @@ Il est impossible d’imbriquer (d’utiliser) une formule à l’intérieur d�
 
 Les formules parlent et quantifient des __chemin maximaux__ dans le __graphe/espace d’état__ du système.
 
+|      |  `[]`                            |  `<>`            |
+|:----:|:--------------------------------:|:----------------:|
+|  `A` |  __always__                      |  __inevitably__  |
+|  `E` |  __potentially__<br />__always__ |  __reachable__   |
+
 > __Exemple de formules classiques:__
 >
 > * `A[] not deadlock` (invariant) toujours l’état n’est pas un deadlock
-
-
 
 ## Données et expressions en UPPAAL
 
 On peut définir des variables, en plus des canaux, en utilisant une syntaxe “à la C” avec différents types de données possible
 
-* `int[0,3] x;` déclare une variable `x` qui peut prendre comme valeur 0, 1, 2 ou 3 
+* `int[0,3] x;` déclare une variable `x` qui peut prendre comme valeur 0, 1, 2 ou 3
 * `int y;` domaine par défaut
-* `int tab[n];` tableau de `n` valeurs, de `tab[0]` à `tab[n-1]` 
+* `int tab[n];` tableau de `n` valeurs, de `tab[0]` à `tab[n-1]`
 
-On peut aussi définir des constantes `const bool KO = false;` 
+On peut aussi définir des constantes `const bool KO = false;`
 
 Ces valeurs peuvent être utilisées pour instancier des paramètres, et donc pouvoir définir deux instances d’un même _template_ qui ont des comportements différents.
 
-
-
-![parameter](docs/1586962032896.png)
-*Fig. 3: exemple d'utilisation de paramètres et déclarations locales dans un template*
-
-
+<figure>
+  <img src="docs/1586962032896.png" />
+  <figcaption>Fig. 3: exemple d'utilisation de paramètres et déclarations locales dans un template</figcaption>
+</figure>
 
 
 ```uppaal
@@ -112,8 +106,6 @@ droit =  Agent(1);
 
 system gauche, droit;
 ```
-
-
 
 ## Format textuel
 
@@ -146,4 +138,3 @@ gauche = Agent(0);
 droit =  Agent(1);
 system gauche, droit;
 ```
-
