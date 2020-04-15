@@ -29,7 +29,7 @@ Ce TP est facile; il faut avoir commencé le TP2 avant la fin de la première s�
 
 Les transitions d’un _template_/_process_  UPPAAL peuvent avoir quatre types de propriétés
 
-![Edit edge in UPPAAL](.\docs\1586956621847.png)
+![Edit edge in UPPAAL](docs/1586956621847.png)
 *Fig. 1: edit edge in UPPAAL*
 
 * `select` choix “non-déterministe” d’une valeur 
@@ -100,7 +100,7 @@ Ces valeurs peuvent être utilisées pour instancier des paramètres, et donc po
 
 
 
-![parameter](.\docs\1586962032896.png)
+![parameter](docs/1586962032896.png)
 *Fig. 3: exemple d'utilisation de paramètres et déclarations locales dans un template*
 
 
